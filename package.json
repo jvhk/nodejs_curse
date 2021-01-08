@@ -1,0 +1,23 @@
+{
+  "name": "site_noticias",
+  "version": "1.0.0",
+  "description": "",
+  "main": "noticias.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jvhk/nodejs_curse.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jvhk/nodejs_curse/issues"
+  },
+  "homepage": "https://github.com/jvhk/nodejs_curse#readme",
+  "dependencies": {
+    "ejs": "^3.1.5",
+    "express": "^4.17.1"
+  }
+}

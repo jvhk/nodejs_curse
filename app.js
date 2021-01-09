@@ -1,23 +1,16 @@
-const express  = require("express");
-const app = express();
+const app = require("./config/server");
 
+const rotaHome = require("./app/routes/home");
+rotaHome(app);
 
-//view
-app.set("view engine", "ejs");
+const rotaNoticias = require("./app/routes/noticias");
+rotaNoticias(app);
 
-//Rotas possívies
-app.get('/tecnologia', function(req,res){
-    res.render("secao/tecnologia");
-});
-
-
-app.get('/', function(req,res){
-    res.send("<html<body>Portal de noticias</body></html>");
-});
-
-
+const rotaFormInc = require("./app/routes/formulario_inclusao_noticia");
+rotaFormInc(app);
 
 //equivalente ao server.listen do http
 app.listen(3000, function(){
     console.log("Servidor rodando com express");
 });
+

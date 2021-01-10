@@ -1,15 +1,15 @@
-module.exports = function(app){
+module.exports = function(application){
     
     
 
-    app.get('/noticias', function(req,res){
+    application.get('/noticias', function(req,res){
 
-        const connection = app.config.dbconnection();
+        const connection = application.config.dbconnection();
+        const noticiasModel = application.app.models.noticiasModel();
 
-        connection.query("select * from noticias", function (erro, result) {
+        noticiasModel.getNoticias(connection,function(error, result) {
             res.render("noticias/noticias", {noticias: result});
         });
-
         
     });
     

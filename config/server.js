@@ -12,6 +12,7 @@ app.set("views", "./app/views");
 consign()
     .include('app/routes')
     .then('/config/dbconnection.js')
+    .then('app/models/noticiasModel.js')
     .into(app);
 
 module.exports = app;

@@ -11,10 +11,10 @@ module.exports = function(application){
         //recuperando conec
         const connection = application.config.dbconnection();
         //recuperando o model
-        const noticiasModel = application.app.models.noticiasModel();
+        const noticiasModel = new application.app.models.NoticiasDAO(connection);
 
         //salvando noticias
-        noticiasModel.salvarNoticia(noticia, connection,function(error, result) {
+        noticiasModel.salvarNoticia(noticia, function(error, result) {
             res.redirect('/noticias');
             //alert("Noticia adicionada!");
         });

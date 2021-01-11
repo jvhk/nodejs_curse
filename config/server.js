@@ -16,7 +16,7 @@ app.use(bodyParser.urlencoded({extended : true}));
 consign()
     .include('app/routes')
     .then('/config/dbconnection.js')
-    .then('app/models/noticiasModel.js')
+    .then('app/models/NoticiasDAO.js')
     .into(app);
 
 module.exports = app;

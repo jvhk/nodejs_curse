@@ -1,5 +1,6 @@
 const express  = require("express");
 const consign  = require("consign");
+const bodyParser = require("body-parser");
 
 const app = express();
 
@@ -7,6 +8,9 @@ const app = express();
 //view
 app.set("view engine", "ejs");
 app.set("views", "./app/views");
+
+//middleware
+app.use(bodyParser.urlencoded({extended : true}));
 
 // settando o consign
 consign()

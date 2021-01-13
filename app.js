@@ -14,5 +14,5 @@ const app = require("./config/server");
 //equivalente ao server.listen do http
 app.listen(3000, function(){
     console.log("Servidor rodando com express");
-});
+}); 
 

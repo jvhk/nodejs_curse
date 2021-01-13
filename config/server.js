@@ -19,6 +19,7 @@ consign()
     .include('app/routes')
     .then('/config/dbconnection.js')
     .then('app/models/NoticiasDAO.js')
+    .then('app/controllers')
     .into(app);
 
 module.exports = app;

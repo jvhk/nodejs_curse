@@ -8,6 +8,8 @@ let server = app.listen(80, function(){
 
 let io = require('socket.io').listen(server);
 
+app.set('io', io);
+
 // conn com websocket
 
 io.on('connection', function(socket){

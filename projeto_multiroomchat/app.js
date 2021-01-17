@@ -2,7 +2,18 @@ const app = require('./config/server');
 
 
 //porta
-app.listen(4040, function(){
-    console.log("Server rodando na porta 4040");
+let server = app.listen(80, function(){
+    console.log("Server rodando na porta 80");
 });
 
+let io = require('socket.io').listen(server);
+
+// conn com websocket
+
+io.on('connection', function(socket){
+    console.log("Usuário conectou!");
+
+    socket.on('disconnect', function(){
+        console.log("Usuário desconectou!");
+    });
+});

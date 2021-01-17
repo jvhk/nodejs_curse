@@ -1,8 +1,8 @@
-const app = require("./config/server.js"); 
+const app = require('./config/server'); 
 
 
 //porta
-app.listen(8000, function(){
-    console.log("Server rodando na porta 8000");
+app.listen(4040, function(){
+    console.log("Server rodando na porta 4040");
 });
 

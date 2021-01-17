@@ -1,18 +1,18 @@
-const express = require("express");
-const consign = require("consign");
-const bodyParser = require("body-parser");
-const expressValidator = require("express-validator");
+const express = require('express');
+const consign = require('consign');
+const bodyParser = require('body-parser');
+const expressValidator = require('express-validator');
 
 const app = express();
 
 
 //views
 app.set('view engine', 'ejs');
-app.set('view', '/app/views');
+app.set('views', './app/views');
 
 
 //middleware - express.static
-app.use(express.static('/app/public'));
+app.use(express.static('./app/public'));
 
 //middleware bodyparser
 app.use(bodyParser.urlencoded({extended : true}));

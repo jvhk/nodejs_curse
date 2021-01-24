@@ -1,6 +1,7 @@
 /* import do mongodb */
 
 const mongo = require('mongodb');
+const assert = require('assert');
 
 const connMongoDB = function(){
     console.log("Entrou na função de conexão com mongoDB");

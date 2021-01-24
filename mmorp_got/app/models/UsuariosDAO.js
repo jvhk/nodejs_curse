@@ -5,7 +5,7 @@ function UsuariosDAO (connection) {
 }
 
 
-UsuariosDAO.prototype.inserirUsuario = function(usuario){
+UsuariosDAO.prototype.inserirUsuario = function(usuario, res){
     
     /*this._connection.open(function(err, mongoclient){
         mongoclient.collection("usuarios", function(err, collection){
@@ -13,24 +13,47 @@ UsuariosDAO.prototype.inserirUsuario = function(usuario){
         });
     });
     */
+ 
+   
+	var dados = {
+		operacao: "inserir",
+		usuario: usuario,
+		collection: "usuarios",
+		callback: function(err, result) {
+		}
+    };
+    
+	this._connection(dados);
 
-    const client = this._connection;
-
-    async function run () { 
-        try{
-            await client.connect();
-            const database = client.db("got");
-            const collection = database.collection("usuario");
-            const result = await collection.insertOne(usuario);
-            console.log("Usuario inserido no banco com sucesso");
-        } finally {
-            await client.close();
-        }
-    }
-
-    run().catch(console.dir);
 
 }
+
+
+
+UsuariosDAO.prototype.autenticar = function(usuario, req, res){
+    
+    var dados = {
+		operacao: "find",
+		usuario: usuario,
+		collection: "usuarios",
+		callback: function(err, result) {
+			if(result == null){
+				req.session.autorizado = false;
+			}else{
+				req.session.autorizado = true;
+				req.session.usuario = result.usuario;
+				req.session.casa = result.casa;
+			}
+			if(req.session.autorizado){
+        		res.redirect("jogo");
+   			}else {
+   				res.render("index", {validacao: {}});
+   			}
+		}
+	};
+	this._connection = connection(dados);
+}
+
 
 module.exports = function(){
     return UsuariosDAO;

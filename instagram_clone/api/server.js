@@ -2,6 +2,7 @@ const express = require('express'),
 bodyParser = require('body-parser'),
 mongodb = require('mongodb').MongoClient,
 objectID = require('mongodb').ObjectId;
+const { ObjectID } = require('mongodb');
 
 let app = express();
 
@@ -24,28 +25,35 @@ let connMongoDB = function(data) {
 }
 
 function query(db, data) {
-let collection = db.collection(data.collection);
-    switch (data.operacao) {
-        case 'atualizar':
-            collection.update(data.where, data.set);
-        break;
-        case 'inserir':
-             collection.insertOne(data.dados, data.callback);
-        break;
-        case 'pesquisar':
-             collection.find(data.dados).toArray(data.callback);
-        break;
-        case 'remover':
-            data.where._id = objectID(data.where._id);
-            collection.remove(data.where, data.callback);
-        break;
-    }
+    let collection = db.collection(data.collection);
+        switch (data.operacao) {
+            case 'atualizar':
+                collection.update(data.where, data.set);
+            break;
+            case 'inserir':
+                collection.insertOne(data.dados, data.callback);
+            break;
+            case 'pesquisar':
+                collection.find(data.dados).toArray(data.callback);
+            break;
+            case 'remover':
+                data.where._id = objectID(data.where._id);
+                collection.remove(data.where, data.callback);
+            break;
+        }
 }
 
 console.log('Servidor HTTP escutando na porta ' + port);
 
-app.get('/', function(req, res){
-    collections = dbName.get().collection('postagens');
+app.get('/api', function(req, res){
+    db.collection('postagens').find().toArray()
+        .then(results => {
+        res.json(results);
+        })
+        .catch(error => res.json(error))
+    // ...
+
+    /*collections = client.get().collection('postagens');
     collections.find().toArray(function (err, docs){
         if(err){
             res.json(err);
@@ -53,7 +61,26 @@ app.get('/', function(req, res){
             res.json(docs);
         }
         client.close();
-    })
+    })*/
+});
+
+//GET BY ID
+app.get('/api/:id', function(req, res){
+    db.collection('postagens').find(ObjectID(req.params.id)).toArray()
+        .then(results => {
+            res.json(results);
+        })
+        .catch(error => res.json(error))
+    
+    /*collections = dbName.get().collection('postagens');
+    collections.find().toArray(function (err, docs){
+        if(err){
+            res.json(err);
+        }else{
+            res.json(docs);
+        }
+        client.close();
+    })*/
 });
 
 app.post('/api', function(req, res){

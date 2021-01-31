@@ -45,22 +45,31 @@ let collection = db.collection(data.collection);
 console.log('Servidor HTTP escutando na porta ' + port);
 
 app.get('/', function(req, res){
-res.send({msg: 'Olá'});
+    collections = dbName.get().collection('postagens');
+    collections.find().toArray(function (err, docs){
+        if(err){
+            res.json(err);
+        }else{
+            res.json(docs);
+        }
+        client.close();
+    })
 });
 
 app.post('/api', function(req, res){
-let data = req.body;
-let dados = {
-operacao: 'inserir',
-dados: data,
-collection: 'postagens',
-callback: function(err, records){
-  if (err) {
-    res.json(err);
-  } else {
-    res.json(records);
-  }
-}
-}
-connMongoDB(dados);
+    let data = req.body;
+    let dados = {
+        operacao: 'inserir',
+        dados: data,
+        collection: 'postagens',
+        callback: function(err, records){
+            if (err) {
+                res.json(err);
+            } else {
+                res.json(records);
+            }
+        }
+    }
+
+    connMongoDB(dados);
 });
